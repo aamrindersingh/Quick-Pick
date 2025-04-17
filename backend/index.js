@@ -3,13 +3,17 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const path = require("path");
 const sequelize = require('./config/db');
-const User = require('./models/user'); 
-
-dotenv.config();
-
+const User = require('./models/product'); 
 const app = express()
+
+
 const PORT = process.env.PORT
 
+dotenv.config();
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+
+app.use(cors());
 app.use("/",(req,res)=>{
 
     res.send("hello")
@@ -17,18 +21,11 @@ app.use("/",(req,res)=>{
 })
 
 
-
 sequelize
   .sync({ force: true })
   .then(() => {
-    console.log('✅ Database synced using Promises');
-
-    return User.create({ username: 'promise_user' });
-  })
-  .then(user => {
-    console.log('👤 User created:', user.toJSON());
-  })
-  .catch(err => {
+    console.log('✅ Database synced successfully!');
+  }).catch(err => {
     console.error('❌ Error syncing DB or creating user:', err);
   });
 
