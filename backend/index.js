@@ -5,7 +5,7 @@ const path = require("path");
 const sequelize = require('./config/db');
 const User = require('./models/product'); 
 const app = express()
-
+const productRoutes = require("./routes/productRoutes")
 
 const PORT = process.env.PORT
 
@@ -29,7 +29,7 @@ sequelize
     console.error('❌ Error syncing DB or creating user:', err);
   });
 
-
+  app.use("/api/products", productRoutes);
 app.listen(PORT, () => {
     console.log("Server is running on port " + PORT);
   });

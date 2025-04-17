@@ -38,7 +38,7 @@ exports.createProduct = async (req,res)=>{
 }
 
 
-exports.getProducts = async (req,res)=>{
+exports.getProduct = async (req,res)=>{
 
     const {id} =req.params;
 
