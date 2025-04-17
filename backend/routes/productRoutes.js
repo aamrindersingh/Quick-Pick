@@ -1,6 +1,10 @@
 const express = require("express");
 const router = express.Router();
-
+const getProducts = require("../controllers/productControllers")
+const getProduct = require("../controllers/productControllers")
+const createProduct = require("../controllers/productControllers")
+const updateProduct = require("../controllers/productControllers")
+const deleteProduct = require("../controllers/productControllers")
 
 
 router.get("/", getProducts);
