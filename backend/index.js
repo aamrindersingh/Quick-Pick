@@ -7,19 +7,19 @@ const User = require('./models/product');
 const app = express()
 const productRoutes = require("./routes/productRoutes")
 
-const PORT = process.env.PORT
-
 dotenv.config();
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 app.use(cors());
-app.use("/",(req,res)=>{
+app.use("/api/products", productRoutes);
 
-    res.send("hello")
+// Optional: move or remove this catch-all route
+// app.use("/",(req,res)=>{
+//     res.send("hello")
+// })
 
-})
-
+const PORT = process.env.PORT || 3000;
 
 sequelize
   .sync({ force: true })
@@ -29,7 +29,6 @@ sequelize
     console.error('❌ Error syncing DB or creating user:', err);
   });
 
-  app.use("/api/products", productRoutes);
 app.listen(PORT, () => {
     console.log("Server is running on port " + PORT);
-  });
+});

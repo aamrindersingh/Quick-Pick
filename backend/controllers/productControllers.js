@@ -46,7 +46,7 @@ exports.getProduct = async (req,res)=>{
         const product =  await Product.findByPk(id)
         if(!product) return res.status(400).json({success:false,message:"No Product with that ID exists"})
         
-            return res.stats(200).json({success:true,data:product})
+            return res.status(200).json({success:true,data:product})
     }
 
     catch(err){
@@ -60,7 +60,7 @@ exports.getProduct = async (req,res)=>{
 
 exports.updateProduct = async (req,res)=>{
     const {id} = req.params;
-    const {name,body,image} = req.body
+    const {name, price, image} = req.body
 
     try{
         const product = await Product.findByPk(id)
@@ -69,7 +69,7 @@ exports.updateProduct = async (req,res)=>{
             return res.status(404).json({success:false,message:"Failed to find the product"})
         }
 
-        await product.update({name,price,image})
+        await product.update({name, price, image})
 
         res.status(200).json({success:true,data:product})
 
@@ -92,6 +92,7 @@ exports.deleteProduct = async (req,res)=>{
         }
 
         await product.destroy()
+        res.status(200).json({success:true,message:"Product deleted"})
     }
 
     catch(err){
@@ -101,4 +102,4 @@ exports.deleteProduct = async (req,res)=>{
     }
     
 
-}   
+}
