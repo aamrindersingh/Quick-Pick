@@ -13,6 +13,13 @@ function ImageSearch({ onImageSelect, initialImage = "" }) {
   const [error, setError] = useState(null);
   const [selectedImage, setSelectedImage] = useState(initialImage);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [hasSearched, setHasSearched] = useState(false);
+
+  // Predefined categories for quick search
+  const categories = [
+    "Electronics", "Fashion", "Home Decor", "Furniture", 
+    "Watches", "Jewelry", "Shoes", "Bags"
+  ];
 
   // For demo purposes - these are placeholder images if no API key is provided
   const placeholderImages = [
@@ -24,47 +31,61 @@ function ImageSearch({ onImageSelect, initialImage = "" }) {
     "https://images.unsplash.com/photo-1560343090-f0409e92791a",
     "https://images.unsplash.com/photo-1572635196237-14b3f281503f",
     "https://images.unsplash.com/photo-1507035895480-2b3156c31fc8",
-    "https://images.unsplash.com/photo-1491553895911-0055eca6402d",
-    "https://images.unsplash.com/photo-1581539250439-c96689b516dd",
-    "https://images.unsplash.com/photo-1585386959984-a4155224a1ad",
-    "https://images.unsplash.com/photo-1600080972464-8e5f35f63d08"
+    "https://images.unsplash.com/photo-1491553895911-0055eca6402d"
   ];
 
-  const searchImages = async () => {
-    if (!searchQuery.trim()) return;
+  const searchImages = async (query = searchQuery) => {
+    if (!query.trim()) return;
 
     setLoading(true);
     setError(null);
+    setHasSearched(true);
 
     try {
       if (!UNSPLASH_ACCESS_KEY || UNSPLASH_ACCESS_KEY === "YOUR_UNSPLASH_API_KEY") {
-        // If no API key, use placeholders filtered by search term
-        const filteredImages = placeholderImages.slice(0, 8); // Just show some placeholder images
-        setImages(filteredImages.map(url => ({ 
+        // If no API key, use placeholders
+        setImages(placeholderImages.map(url => ({ 
           id: url, 
-          urls: { 
-            regular: url,
-            thumb: url 
-          }
+          urls: { regular: url, thumb: url }
         })));
+        
         // Simulate API delay
-        await new Promise(resolve => setTimeout(resolve, 500));
+        await new Promise(resolve => setTimeout(resolve, 300));
       } else {
         // Real Unsplash API call
-        const response = await axios.get("https://api.unsplash.com/search/photos", {
-          params: {
-            query: searchQuery,
-            per_page: 12
-          },
-          headers: {
-            Authorization: `Client-ID ${UNSPLASH_ACCESS_KEY}`
+        try {
+          const response = await axios.get("https://api.unsplash.com/search/photos", {
+            params: {
+              query,
+              per_page: 24,
+              orientation: "landscape"
+            },
+            headers: {
+              Authorization: `Client-ID ${UNSPLASH_ACCESS_KEY}`
+            }
+          });
+          
+          if (response.data && response.data.results) {
+            setImages(response.data.results);
+          } else {
+            setImages([]);
           }
-        });
-        setImages(response.data.results);
+        } catch (apiError) {
+          console.error("API Error:", apiError);
+          // Fallback to placeholder images
+          setImages(placeholderImages.map(url => ({ 
+            id: url, 
+            urls: { regular: url, thumb: url }
+          })));
+        }
       }
     } catch (err) {
       console.error("Error searching for images:", err);
       setError("Failed to fetch images. Please try again.");
+      setImages(placeholderImages.map(url => ({ 
+        id: url, 
+        urls: { regular: url, thumb: url }
+      })));
     } finally {
       setLoading(false);
     }
@@ -76,23 +97,37 @@ function ImageSearch({ onImageSelect, initialImage = "" }) {
     setIsModalOpen(false);
   };
 
+  const handleCategoryClick = (category) => {
+    setSearchQuery(category);
+    searchImages(category);
+  };
+
+  // Reset search state when modal opens
   useEffect(() => {
-    if (isModalOpen && images.length === 0 && !loading) {
-      // Load some initial popular images when modal opens
-      setSearchQuery("product");
-      searchImages();
+    if (isModalOpen) {
+      setSearchQuery("");
+      setImages([]);
+      setHasSearched(false);
+      
+      // Load popular images as initial content
+      searchImages("popular products");
     }
   }, [isModalOpen]);
 
+  // Update selected image when initialImage prop changes
+  useEffect(() => {
+    setSelectedImage(initialImage);
+  }, [initialImage]);
+
   return (
-    <div className="w-full">
-      <div className="form-control">
+    <div className="w-full h-full">
+      <div className="form-control h-full">
         <label className="label">
           <span className="label-text text-base font-medium">Product Image</span>
         </label>
 
         {selectedImage ? (
-          <div className="relative rounded-xl overflow-hidden border border-base-300 h-56 group">
+          <div className="relative rounded-xl overflow-hidden border border-base-300 h-full min-h-[200px] aspect-square group">
             <img
               src={selectedImage}
               alt="Selected product"
@@ -102,7 +137,7 @@ function ImageSearch({ onImageSelect, initialImage = "" }) {
               <button
                 type="button"
                 onClick={() => setIsModalOpen(true)}
-                className="btn btn-primary btn-sm mr-2"
+                className="btn btn-primary mr-2"
               >
                 Change Image
               </button>
@@ -112,7 +147,7 @@ function ImageSearch({ onImageSelect, initialImage = "" }) {
                   setSelectedImage("");
                   onImageSelect("");
                 }}
-                className="btn btn-error btn-sm"
+                className="btn btn-error"
               >
                 Remove
               </button>
@@ -122,107 +157,134 @@ function ImageSearch({ onImageSelect, initialImage = "" }) {
           <button
             type="button"
             onClick={() => setIsModalOpen(true)}
-            className="border-2 border-dashed border-base-300 h-48 rounded-xl flex flex-col items-center justify-center hover:border-primary transition-colors"
+            className="border-2 border-dashed border-base-300 h-full min-h-[200px] aspect-square rounded-xl flex flex-col items-center justify-center hover:border-primary transition-colors"
           >
-            <ImageIcon className="size-8 mb-2 text-base-content/60" />
-            <span className="text-base-content/60">Click to search for images</span>
+            <ImageIcon className="size-10 mb-3 text-base-content/60" />
+            <span className="text-base-content/60 text-lg">Click to add image</span>
           </button>
         )}
       </div>
 
       {/* Image Search Modal */}
-      <AnimatePresence>
-        {isModalOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/50 backdrop-blur-sm"
-              onClick={() => setIsModalOpen(false)}
-            />
+      {isModalOpen && (
+        <div className="fixed inset-0 z-[100] overflow-hidden">
+          <div 
+            className="fixed inset-0 bg-black/70 backdrop-blur-sm"
+            onClick={() => setIsModalOpen(false)}
+          />
 
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              className="relative bg-base-100 p-6 rounded-xl shadow-xl max-w-4xl w-full mx-4 max-h-[80vh] flex flex-col z-50"
-            >
-              <div className="flex justify-between items-center mb-6">
-                <h3 className="text-xl font-bold">Search for Images</h3>
-                <button
-                  className="btn btn-sm btn-ghost"
-                  onClick={() => setIsModalOpen(false)}
-                >
-                  <XIcon className="size-5" />
-                </button>
-              </div>
-
-              <div className="relative mb-6">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <SearchIcon className="size-5 text-base-content/50" />
+          <div className="fixed inset-4 bg-base-100 rounded-2xl shadow-2xl flex flex-col z-[101] overflow-hidden">
+            {/* Header */}
+            <div className="flex justify-between items-center p-6 border-b border-base-300">
+              <h3 className="text-2xl font-bold">Find Product Images</h3>
+              <button
+                className="btn btn-ghost btn-sm"
+                onClick={() => setIsModalOpen(false)}
+              >
+                <XIcon className="size-5" />
+              </button>
+            </div>
+            
+            {/* Body */}
+            <div className="flex-1 overflow-hidden flex flex-col">
+              {/* Search Bar */}
+              <div className="p-6 pb-2">
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <SearchIcon className="size-5 text-base-content/50" />
+                  </div>
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search for product images..."
+                    className="input input-bordered w-full pl-12 py-6 text-lg"
+                    onKeyDown={(e) => e.key === "Enter" && searchImages()}
+                    autoFocus
+                  />
+                  <button
+                    className="btn btn-primary absolute right-0 top-0 bottom-0 rounded-l-none px-6 text-lg font-medium"
+                    onClick={() => searchImages()}
+                    disabled={loading}
+                  >
+                    {loading ? <Loader2Icon className="size-5 animate-spin mr-2" /> : <SearchIcon className="size-5 mr-2" />}
+                    Search
+                  </button>
                 </div>
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search for product images..."
-                  className="input input-bordered w-full pl-10"
-                  onKeyDown={(e) => e.key === "Enter" && searchImages()}
-                />
-                <button
-                  className="btn btn-primary absolute right-0 top-0 bottom-0 rounded-l-none"
-                  onClick={searchImages}
-                  disabled={loading}
-                >
-                  {loading ? <Loader2Icon className="size-5 animate-spin" /> : "Search"}
-                </button>
+                
+                {/* Quick Categories */}
+                <div className="flex flex-wrap gap-2 mt-4 pb-2">
+                  {categories.map(category => (
+                    <button
+                      key={category}
+                      className="badge badge-outline hover:badge-primary py-3 px-3 cursor-pointer transition-colors"
+                      onClick={() => handleCategoryClick(category)}
+                    >
+                      {category}
+                    </button>
+                  ))}
+                </div>
               </div>
-
+              
+              {/* Error Message */}
               {error && (
-                <div className="alert alert-error mb-4">
-                  <span>{error}</span>
+                <div className="px-6">
+                  <div className="alert alert-error">
+                    <span>{error}</span>
+                  </div>
                 </div>
               )}
-
-              <div className="overflow-y-auto flex-grow">
+              
+              {/* Image Grid */}
+              <div className="flex-1 overflow-y-auto p-4">
                 {loading ? (
-                  <div className="flex justify-center items-center py-12">
+                  <div className="flex justify-center items-center h-full py-16">
                     <div className="loading loading-spinner loading-lg text-primary"></div>
                   </div>
                 ) : (
-                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                    {images.map((image) => (
-                      <div
-                        key={image.id}
-                        className="aspect-square rounded-lg overflow-hidden cursor-pointer hover:ring-2 hover:ring-primary transition-all hover:scale-105"
-                        onClick={() => handleImageSelect(image.urls.regular)}
-                      >
-                        <img
-                          src={image.urls.thumb || image.urls.regular}
-                          alt="Product"
-                          className="w-full h-full object-cover"
-                        />
+                  <>
+                    {images.length > 0 ? (
+                      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                        {images.map((image) => (
+                          <div
+                            key={image.id}
+                            className="rounded-xl overflow-hidden cursor-pointer hover:ring-4 ring-primary transition-all hover:scale-105 shadow-md aspect-square"
+                            onClick={() => handleImageSelect(image.urls.regular)}
+                          >
+                            <img
+                              src={image.urls.thumb || image.urls.regular}
+                              alt="Product"
+                              className="w-full h-full object-cover hover:opacity-90 transition-opacity"
+                              loading="lazy"
+                            />
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
-                )}
-
-                {!loading && images.length === 0 && !error && (
-                  <div className="text-center py-12 text-base-content/60">
-                    <ImageIcon className="size-12 mx-auto mb-4" />
-                    <p>Search for images to display results</p>
-                  </div>
+                    ) : hasSearched ? (
+                      <div className="flex flex-col items-center justify-center h-full">
+                        <ImageIcon className="size-16 mb-4 text-base-content/30" />
+                        <p className="text-xl">No images found for "{searchQuery}"</p>
+                        <p className="text-base-content/60 mt-2">Try another search term</p>
+                      </div>
+                    ) : (
+                      <div className="flex flex-col items-center justify-center h-full">
+                        <ImageIcon className="size-16 mb-4 text-base-content/30" />
+                        <p className="text-xl">Search for product images</p>
+                        <p className="text-base-content/60 mt-2">Or click a category above to get started</p>
+                      </div>
+                    )}
+                  </>
                 )}
               </div>
-
-              <div className="text-xs text-center mt-4 text-base-content/60">
-                Images provided by Unsplash
-              </div>
-            </motion.div>
+            </div>
+            
+            {/* Footer */}
+            <div className="p-4 border-t border-base-300 text-center text-sm text-base-content/60">
+              Images provided by Unsplash
+            </div>
           </div>
-        )}
-      </AnimatePresence>
+        </div>
+      )}
     </div>
   );
 }

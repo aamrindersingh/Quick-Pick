@@ -16,20 +16,22 @@ function AddProductModal() {
 
   return (
     <dialog id="add_product_modal" className="modal">
-      <div className="modal-box max-w-3xl">
-        {/* CLOSE BUTTON */}
-        <button 
-          className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-          onClick={handleClose}
-        >
-          X
-        </button>
+      <div className="modal-box max-w-5xl w-11/12 p-0 overflow-hidden">
+        <div className="p-6 md:p-8 pb-0">
+          {/* CLOSE BUTTON */}
+          <button 
+            className="btn btn-sm btn-circle btn-ghost absolute right-4 top-4"
+            onClick={handleClose}
+          >
+            X
+          </button>
 
-        {/* MODAL HEADER */}
-        <h3 className="font-bold text-xl mb-8">Add New Product</h3>
+          {/* MODAL HEADER */}
+          <h3 className="font-bold text-2xl mb-6">Add New Product</h3>
+        </div>
 
-        <form onSubmit={addProduct} className="space-y-6">
-          <div className="grid md:grid-cols-2 gap-6">
+        <form onSubmit={addProduct} className="px-6 md:px-8 pb-6 md:pb-8">
+          <div className="grid md:grid-cols-2 gap-8">
             <div className="space-y-6">
               {/* PRODUCT NAME INPUT */}
               <div className="form-control">
@@ -43,7 +45,7 @@ function AddProductModal() {
                   <input
                     type="text"
                     placeholder="Enter product name"
-                    className="input input-bordered w-full pl-10 py-3 focus:input-primary transition-colors duration-200"
+                    className="input input-bordered w-full pl-10 py-3 text-lg focus:input-primary transition-colors duration-200"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   />
@@ -64,7 +66,7 @@ function AddProductModal() {
                     min="0"
                     step="0.01"
                     placeholder="0.00"
-                    className="input input-bordered w-full pl-10 py-3 focus:input-primary transition-colors duration-200"
+                    className="input input-bordered w-full pl-10 py-3 text-lg focus:input-primary transition-colors duration-200"
                     value={formData.price}
                     onChange={(e) => setFormData({ ...formData, price: e.target.value })}
                   />
@@ -82,24 +84,24 @@ function AddProductModal() {
           </div>
 
           {/* MODAL ACTIONS */}
-          <div className="modal-action">
+          <div className="modal-action mt-8 pt-6 border-t border-base-300">
             <button 
               type="button"
-              className="btn btn-ghost"
+              className="btn btn-ghost btn-lg"
               onClick={handleClose}
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="btn btn-primary min-w-[120px]"
+              className="btn btn-primary btn-lg min-w-[140px]"
               disabled={!formData.name || !formData.price || !formData.image || loading}
             >
               {loading ? (
-                <span className="loading loading-spinner loading-sm" />
+                <span className="loading loading-spinner loading-md" />
               ) : (
                 <>
-                  <PlusCircleIcon className="size-5 mr-2" />
+                  <PlusCircleIcon className="size-6 mr-2" />
                   Add Product
                 </>
               )}
@@ -109,8 +111,8 @@ function AddProductModal() {
       </div>
 
       {/* BACKDROP */}
-      <div className="modal-backdrop">
-        <button onClick={handleClose}>close</button>
+      <div className="modal-backdrop" onClick={handleClose}>
+        <button hidden>close</button>
       </div>
     </dialog>
   );
