@@ -72,7 +72,6 @@ Quick Pick is a modern, responsive e-commerce web application built with React a
 git clone <repository-url>
 cd quick-pick
 
-The frontend app will be running at http://localhost:5173.
 
 ### Backend Setup
 ```bash
