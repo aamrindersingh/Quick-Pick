@@ -54,7 +54,7 @@ function ProductPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-10 max-w-6xl">
+    <div className="container mx-auto px-4 pt-32 py-10 max-w-6xl">
       <motion.button 
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
@@ -71,18 +71,20 @@ function ProductPage() {
         className="grid grid-cols-1 lg:grid-cols-2 gap-10"
       >
         {/* PRODUCT IMAGE */}
-        <div className="rounded-2xl overflow-hidden shadow-xl bg-base-100 relative aspect-square">
-          {formData?.image ? (
-            <img
-              src={formData.image}
-              alt={formData.name}
-              className="w-full h-full object-cover"
-            />
-          ) : (
-            <div className="flex items-center justify-center h-full bg-base-200">
-              <p className="text-base-content/50">No image selected</p>
-            </div>
-          )}
+        <div className="card shadow-xl bg-base-100 h-auto">
+          <div className="rounded-xl overflow-hidden aspect-square w-full max-h-[600px]">
+            {formData?.image ? (
+              <img
+                src={formData.image}
+                alt={formData.name}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <div className="flex items-center justify-center h-full bg-base-200">
+                <p className="text-base-content/50">No image selected</p>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* PRODUCT FORM */}
@@ -128,10 +130,15 @@ function ProductPage() {
               </div>
 
               {/* PRODUCT IMAGE SEARCH */}
-              <ImageSearch
-                onImageSelect={handleImageSelect}
-                initialImage={formData.image}
-              />
+              <div className="form-control mb-6">
+                <label className="label">
+                  <span className="label-text text-lg font-medium">Product Image</span>
+                </label>
+                <ImageSearch
+                  onImageSelect={handleImageSelect}
+                  initialImage={formData.image}
+                />
+              </div>
 
               {/* FORM ACTIONS */}
               <div className="flex justify-between mt-10 pt-6 border-t border-base-200">

@@ -23,7 +23,7 @@ function Cart() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-[70vh]">
+      <div className="flex items-center justify-center h-[70vh] pt-32">
         <div className="loading loading-spinner loading-lg text-primary"></div>
       </div>
     );
@@ -31,7 +31,7 @@ function Cart() {
 
   if (error) {
     return (
-      <div className="alert alert-error max-w-3xl mx-auto my-8 shadow-lg">
+      <div className="alert alert-error max-w-3xl mx-auto my-8 mt-32 shadow-lg">
         <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
         <span className="text-lg">{error}</span>
       </div>
@@ -54,7 +54,7 @@ function Cart() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-12 max-w-6xl">
+    <div className="container mx-auto px-4 pt-32 pb-12 max-w-6xl">
       <motion.div 
         initial={{ opacity: 0, y: -20 }} 
         animate={{ opacity: 1, y: 0 }}

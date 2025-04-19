@@ -199,7 +199,12 @@ function ImageSearch({ onImageSelect, initialImage = "" }) {
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search for product images..."
                     className="input input-bordered w-full pl-12 py-6 text-lg"
-                    onKeyDown={(e) => e.key === "Enter" && searchImages()}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                        searchImages();
+                      }
+                    }}
                     autoFocus
                   />
                   <button

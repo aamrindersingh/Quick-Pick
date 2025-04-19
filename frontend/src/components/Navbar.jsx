@@ -1,5 +1,5 @@
 import { Link, useResolvedPath } from "react-router-dom";
-import { ShoppingBagIcon, ShoppingCartIcon, Menu, X } from "lucide-react";
+import { ShoppingCartIcon, Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import ThemeSelector from "./ThemeSelector";
 import { useProductStore } from "../store/useProductStore";
@@ -71,17 +71,6 @@ function Navbar() {
           {/* RIGHT SECTION */}
           <div className="flex items-center gap-5">
             <ThemeSelector />
-
-            {isHomePage && (
-              <div className="indicator hidden md:block">
-                <div className="p-3 rounded-full hover:bg-base-200 transition-colors duration-300 hover:scale-110 transform">
-                  <ShoppingBagIcon className="size-6" />
-                  <span className="badge badge-md badge-primary indicator-item animate-bounce">
-                    {products.length}
-                  </span>
-                </div>
-              </div>
-            )}
 
             <Link to="/cart" className="btn btn-circle btn-primary btn-lg hover:scale-110 transition-transform duration-300 relative">
               <ShoppingCartIcon className="size-7" />
