@@ -21,7 +21,7 @@ function App() {
         </Routes>
       </main>
       <Toaster />
-    </div>
+    </div >
   );
 }
 
