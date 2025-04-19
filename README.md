@@ -1,7 +1,5 @@
 # Quick Pick
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](#license)
-
 ## Description
 
 Quick Pick is a modern, responsive e-commerce web application built with React and a clean, intuitive UI. It offers a seamless shopping experience, allowing customers to browse, search, and filter products, manage their cart, and complete purchases effortlessly. Administrators can easily manage the product inventory through a user-friendly interface.
@@ -63,21 +61,17 @@ Quick Pick is a modern, responsive e-commerce web application built with React a
 - PostgreSQL installed and running
 - Unsplash API key
 
-### Frontend Setup
+
+## Frontend Setup
+
+---
+
+### 1. Clone the repository:
+
 ```bash
-# Clone the repository and navigate to the frontend
 git clone <repository-url>
-cd quick-pick/frontend
+cd quick-pick
 
-# Install dependencies
-npm install
-
-# Create .env file and add the following:
-# VITE_UNSPLASH_ACCESS_KEY=your_unsplash_api_key
-
-# Start the development server
-npm run dev
-```
 The frontend app will be running at http://localhost:5173.
 
 ### Backend Setup
