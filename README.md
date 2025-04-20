@@ -37,17 +37,17 @@ Quick Pick is a modern, responsive e-commerce web application built with React a
 - React
 - Vite
 - TailwindCSS & DaisyUI
-- Framer Motion
+- Framer Motion (animations)
 - React Router
-- Zustand
-- Axios
-- React Hot Toast
-- Lucide React
+- Zustand (state management)
+- Axios 
+- React Hot Toast (notifications)
+- Lucide React (icons)
 
 ### Backend
 - Node.js & Express
 - Sequelize ORM
-- PostgreSQL
+- Neon PostgreSQL
 - CORS
 - Dotenv
 
