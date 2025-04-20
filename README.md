@@ -71,7 +71,23 @@ Quick Pick is a modern, responsive e-commerce web application built with React a
 ```bash
 git clone <repository-url>
 cd quick-pick
+```
 
+### 2. Navigate to the frontend directory:
+
+```bash
+cd frontend
+```
+
+### 3. Install dependencies:
+```bash
+npm install
+```
+
+### 4. Start the frontend development server:
+```bash
+npm run dev
+```
 
 ### Backend Setup
 ```bash
