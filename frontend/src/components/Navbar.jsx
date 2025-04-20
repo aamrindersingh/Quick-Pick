@@ -35,7 +35,7 @@ function Navbar() {
       scrolled ? 'bg-base-100/95 backdrop-blur-lg shadow-lg' : 'bg-base-100/80 backdrop-blur-sm'
     }`}>
       <div className="max-w-7xl mx-auto">
-        <div className="navbar px-4 py-4 min-h-[5rem] justify-between">
+        <div className="navbar px-2 py-2 min-h-[3rem] justify-between">
           {/* LOGO */}
           <div className="flex-1 lg:flex-none">
             <Link to="/" className="group hover:opacity-90 transition-all duration-300">
@@ -50,9 +50,9 @@ function Navbar() {
                   <span className="font-bold font-mono tracking-widest text-2xl lg:text-3xl 
                     bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary
                     transition-all duration-300 group-hover:tracking-[0.2em]">
-                    SHOP
+                    QUICK PICK
                   </span>
-                  <span className="text-xs font-light opacity-70 -mt-1">Premium Products</span>
+                  <span className="text-xs font-light opacity-70 -mt-1">Smart Shopping</span>
                 </div>
               </div>
             </Link>
@@ -69,13 +69,13 @@ function Navbar() {
           </div>
 
           {/* RIGHT SECTION */}
-          <div className="flex items-center gap-5">
+          <div className="flex items-center gap-2">
             <ThemeSelector />
 
-            <Link to="/cart" className="btn btn-circle btn-primary btn-lg hover:scale-110 transition-transform duration-300 relative">
-              <ShoppingCartIcon className="size-7" />
+            <Link to="/cart" className="btn btn-circle btn-primary btn-sm hover:scale-105 transition-transform duration-200 relative">
+              <ShoppingCartIcon className="size-5" />
               {getTotalItems() > 0 && (
-                <span className="absolute -top-2 -right-2 bg-secondary text-secondary-content text-sm font-bold rounded-full w-6 h-6 flex items-center justify-center animate-pulse">
+                <span className="absolute -top-1 -right-1 bg-secondary text-secondary-content text-xs font-bold rounded-full w-4 h-4 flex items-center justify-center animate-pulse">
                   {getTotalItems()}
                 </span>
               )}
@@ -84,9 +84,9 @@ function Navbar() {
             {/* MOBILE MENU TOGGLE */}
             <button 
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="btn btn-ghost btn-circle md:hidden"
+              className="btn btn-ghost btn-circle btn-xs md:hidden"
             >
-              {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+              {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
             </button>
           </div>
         </div>

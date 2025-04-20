@@ -21,66 +21,66 @@ function ProductCard({ product }) {
 
   return (
     <div 
-      className="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 overflow-hidden group"
+      className="card bg-base-100 shadow group"
       onMouseEnter={() => setShowButtons(true)}
       onMouseLeave={() => setShowButtons(false)}
     >
       {/* PRODUCT IMAGE */}
-      <figure className="relative pt-[80%]">
+      <figure className="relative pt-[60%]">
         <img
           src={product.image}
           alt={product.name}
-          className="absolute top-0 left-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+          className="absolute top-0 left-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
         
         {/* Quick actions overlay */}
-        <div className={`absolute inset-0 bg-black/40 flex items-center justify-center gap-3 transition-opacity duration-300 ${showButtons ? 'opacity-100' : 'opacity-0'}`}>
+        <div className={`absolute inset-0 bg-black/30 flex items-center justify-center gap-1 transition-opacity duration-200 ${showButtons ? 'opacity-100' : 'opacity-0'}`}>
           <Link 
             to={`/product/${product.id}`} 
-            className="btn btn-circle btn-md bg-white/80 hover:bg-white text-black border-none"
+            className="btn btn-circle btn-xs bg-white/80 hover:bg-white text-black border-none"
           >
-            <Eye className="size-5" />
+            <Eye className="size-4" />
           </Link>
           
           <button
-            className="btn btn-circle btn-md bg-red-500/80 hover:bg-red-500 text-white border-none"
+            className="btn btn-circle btn-xs bg-red-500/80 hover:bg-red-500 text-white border-none"
             onClick={() => deleteProduct(product.id)}
           >
-            <Trash2Icon className="size-5" />
+            <Trash2Icon className="size-4" />
           </button>
         </div>
         
         {/* Sale tag */}
-        <div className="absolute top-4 left-4">
-          <span className="badge badge-lg badge-secondary animate-pulse font-bold px-3 py-3">Sale</span>
+        <div className="absolute top-2 left-2">
+          <span className="badge badge-secondary font-bold px-2 py-1 text-xs">Sale</span>
         </div>
       </figure>
 
-      <div className="card-body p-6">
+      <div className="card-body p-3">
         {/* PRODUCT INFO */}
-        <h2 className="card-title text-xl font-bold tracking-tight">{product.name}</h2>
-        <div className="flex justify-between items-center mt-2">
-          <p className="text-2xl font-extrabold text-primary">${Number(product.price).toFixed(2)}</p>
-          <div className="badge badge-ghost">In Stock</div>
+        <h2 className="card-title text-base font-bold tracking-tight">{product.name}</h2>
+        <div className="flex justify-between items-center mt-1">
+          <p className="text-lg font-extrabold text-primary">${Number(product.price).toFixed(2)}</p>
+          <div className="badge badge-ghost text-xs">In Stock</div>
         </div>
 
         {/* ADD TO CART BUTTON */}
-        <div className="mt-4">
+        <div className="mt-2">
           <button 
             onClick={handleAddToCart}
             disabled={isAdding}
-            className={`btn btn-primary w-full h-14 text-lg font-bold transition-all duration-300 ${
+            className={`btn btn-primary w-full h-8 text-sm font-bold transition-all duration-200 ${
               isAdding ? 'bg-success text-success-content' : ''
             }`}
           >
             {isAdding ? (
               <>
-                <CheckCircle className="size-6 mr-2" />
+                <CheckCircle className="size-4 mr-1" />
                 Added!
               </>
             ) : (
               <>
-                <ShoppingCartIcon className="size-6 mr-2" />
+                <ShoppingCartIcon className="size-4 mr-1" />
                 Add to Cart
               </>
             )}

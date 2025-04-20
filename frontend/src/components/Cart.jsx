@@ -54,33 +54,33 @@ function Cart() {
   };
 
   return (
-    <div className="container mx-auto px-4 pt-32 pb-12 max-w-6xl">
+    <div className="container mx-auto px-2 pt-20 pb-6 max-w-3xl">
       <motion.div 
-        initial={{ opacity: 0, y: -20 }} 
+        initial={{ opacity: 0, y: -10 }} 
         animate={{ opacity: 1, y: 0 }}
-        className="flex items-center justify-between mb-12"
+        className="flex items-center justify-between mb-6"
       >
-        <h1 className="text-4xl font-extrabold flex items-center gap-3">
-          <ShoppingCartIcon className="size-10 text-primary" />
-          <span>Your Cart</span>
-          <span className="text-base font-normal text-base-content/60 ml-2">
+        <h1 className="text-2xl font-extrabold flex items-center gap-2">
+          <ShoppingCartIcon className="size-6 text-primary" />
+          <span>Quick Pick Cart</span>
+          <span className="text-xs font-normal text-base-content/60 ml-1">
             ({getTotalItems()} {getTotalItems() === 1 ? 'item' : 'items'})
           </span>
         </h1>
         
-        <div className="flex gap-4">
-          <Link to="/" className="btn btn-outline gap-2">
-            <ArrowLeftIcon className="size-5" />
-            Continue Shopping
+        <div className="flex gap-2 flex-wrap">
+          <Link to="/" className="btn btn-outline btn-xs gap-1 min-w-[120px] px-3 py-2 text-xs flex items-center justify-center">
+            <ArrowLeftIcon className="size-3.5" />
+            <span className="truncate">Continue Shopping</span>
           </Link>
           
           {cartItems.length > 0 && (
             <button 
               onClick={clearCart}
-              className="btn btn-error gap-2"
+              className="btn btn-error btn-xs gap-1 min-w-[100px] px-3 py-2 text-xs flex items-center justify-center"
             >
-              <Trash2Icon className="size-5" />
-              Clear Cart
+              <Trash2Icon className="size-3.5" />
+              <span className="truncate">Clear Cart</span>
             </button>
           )}
         </div>
@@ -93,7 +93,7 @@ function Cart() {
           className="text-center py-16 bg-base-200 rounded-2xl shadow-inner"
         >
           <ShoppingCartIcon className="size-24 mx-auto mb-6 text-base-content/30" />
-          <h2 className="text-3xl font-bold mb-3">Your cart is empty</h2>
+          <h2 className="text-3xl font-bold mb-3">Your Quick Pick cart is empty</h2>
           <p className="text-xl text-base-content/60 mb-8">Looks like you haven't added any products yet</p>
           <Link to="/" className="btn btn-primary btn-lg">
             Start Shopping
@@ -139,22 +139,22 @@ function Cart() {
                     <div className="join border rounded-lg overflow-hidden">
                       <button 
                         onClick={() => updateCartItem(item.id, item.quantity - 1)}
-                        className="join-item btn"
+                        className="join-item btn btn-sm"
                         disabled={item.quantity <= 1}
                       >
-                        <MinusIcon className="size-5" />
+                        <MinusIcon className="size-4" />
                       </button>
-                      <div className="join-item bg-base-100 px-6 flex items-center justify-center text-lg font-medium">
+                      <div className="join-item bg-base-100 px-4 flex items-center justify-center text-base font-medium">
                         {item.quantity}
                       </div>
                       <button 
                         onClick={() => updateCartItem(item.id, item.quantity + 1)}
-                        className="join-item btn"
+                        className="join-item btn btn-sm"
                       >
-                        <PlusIcon className="size-5" />
+                        <PlusIcon className="size-4" />
                       </button>
                     </div>
-                    <div className="badge badge-neutral badge-lg">
+                    <div className="badge badge-neutral min-w-[120px] h-auto py-2.5 px-4 flex items-center justify-center text-sm whitespace-nowrap">
                       ${Number(item.Product.price).toFixed(2)} each
                     </div>
                   </div>
@@ -196,9 +196,12 @@ function Cart() {
                   </div>
                 </div>
                 
-                <button className="btn btn-primary btn-lg mt-6 h-16 text-lg gap-2">
-                  <CreditCardIcon className="size-6" />
-                  Proceed to Checkout
+                <button className="btn btn-primary mt-6 w-full h-auto min-h-[60px] py-4 text-base gap-2 flex flex-col items-center justify-center">
+                  <div className="flex items-center gap-2">
+                    <CreditCardIcon className="size-5" />
+                    <span>Proceed to</span>
+                  </div>
+                  <span>Checkout</span>
                 </button>
                 
                 <div className="text-center text-sm text-base-content/60 mt-4">
@@ -213,4 +216,4 @@ function Cart() {
   );
 }
 
-export default Cart; 
+export default Cart;

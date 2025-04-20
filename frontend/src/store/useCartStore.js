@@ -2,7 +2,8 @@ import { create } from "zustand";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-const BASE_URL = import.meta.env.MODE === "development" ? "http://localhost:3000" : "";
+// base url will be dynamic depending on the environment
+const BASE_URL = import.meta.env.VITE_API_BASE || "";
 
 export const useCartStore = create((set, get) => ({
   cartItems: [],
@@ -87,4 +88,4 @@ export const useCartStore = create((set, get) => ({
       return total + (item.Product.price * item.quantity);
     }, 0);
   }
-})); 
+}));

@@ -54,25 +54,25 @@ function ProductPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 pt-32 py-10 max-w-6xl">
+    <div className="container mx-auto px-2 pt-20 py-6 max-w-3xl">
       <motion.button 
-        initial={{ opacity: 0, x: -20 }}
+        initial={{ opacity: 0, x: -10 }}
         animate={{ opacity: 1, x: 0 }}
         onClick={() => navigate("/")} 
-        className="btn btn-outline mb-10 gap-2"
+        className="btn btn-outline mb-4 gap-1 btn-sm"
       >
-        <ArrowLeftIcon className="size-5" />
+        <ArrowLeftIcon className="size-4" />
         Back to Products
       </motion.button>
 
       <motion.div 
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="grid grid-cols-1 lg:grid-cols-2 gap-10"
+        className="grid grid-cols-1 lg:grid-cols-2 gap-4"
       >
         {/* PRODUCT IMAGE */}
-        <div className="card shadow-xl bg-base-100 h-auto">
-          <div className="rounded-xl overflow-hidden aspect-square w-full max-h-[600px]">
+        <div className="card shadow bg-base-100 h-auto">
+          <div className="rounded-xl overflow-hidden aspect-square w-full max-h-[300px]">
             {formData?.image ? (
               <img
                 src={formData.image}
@@ -88,16 +88,16 @@ function ProductPage() {
         </div>
 
         {/* PRODUCT FORM */}
-        <div className="card bg-base-100 shadow-xl">
-          <div className="card-body p-8">
-            <h2 className="card-title text-3xl mb-8 font-bold">Edit Product</h2>
+        <div className="card bg-base-100 shadow">
+          <div className="card-body p-4">
+            <h2 className="card-title text-xl mb-4 font-bold">Edit Product</h2>
 
             <form
               onSubmit={(e) => {
                 e.preventDefault();
                 updateProduct(id);
               }}
-              className="space-y-8"
+              className="space-y-4"
             >
               {/* PRODUCT NAME */}
               <div className="form-control">
@@ -141,26 +141,26 @@ function ProductPage() {
               </div>
 
               {/* FORM ACTIONS */}
-              <div className="flex justify-between mt-10 pt-6 border-t border-base-200">
+              <div className="flex justify-between mt-4 pt-2 border-t border-base-200">
                 <button 
                   type="button" 
                   onClick={handleDelete} 
-                  className="btn btn-error btn-lg gap-2"
+                  className="btn btn-error btn-sm gap-1"
                 >
-                  <Trash2Icon className="size-5" />
+                  <Trash2Icon className="size-4" />
                   Delete Product
                 </button>
 
                 <button
                   type="submit"
-                  className="btn btn-primary btn-lg gap-2"
+                  className="btn btn-primary btn-sm gap-1"
                   disabled={loading || !formData.name || !formData.price || !formData.image}
                 >
                   {loading ? (
-                    <span className="loading loading-spinner loading-md" />
+                    <span className="loading loading-spinner loading-xs" />
                   ) : (
                     <>
-                      <SaveIcon className="size-5" />
+                      <SaveIcon className="size-4" />
                       Save Changes
                     </>
                   )}

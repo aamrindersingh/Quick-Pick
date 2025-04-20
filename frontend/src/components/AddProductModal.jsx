@@ -1,38 +1,39 @@
 import { DollarSignIcon, Package2Icon, PlusCircleIcon } from "lucide-react";
 import { useProductStore } from "../store/useProductStore";
 import ImageSearch from "./ImageSearch";
-
+// ADD PRODUCT MODAL      
 function AddProductModal() {
   const { addProduct, formData, setFormData, loading } = useProductStore();
 
+  // CLOSE MODAL
   const handleClose = () => {
     const dialog = document.getElementById('add_product_modal');
     if (dialog) dialog.close();
   };
-
+// HANDLE IMAGE SELECT
   const handleImageSelect = (imageUrl) => {
     setFormData({ ...formData, image: imageUrl });
   };
-
+// RETURN MODAL
   return (
     <dialog id="add_product_modal" className="modal">
-      <div className="modal-box max-w-5xl w-11/12 p-0 overflow-hidden">
-        <div className="p-6 md:p-8 pb-0">
+      <div className="modal-box max-w-md w-11/12 p-0 overflow-hidden">
+        <div className="p-3 md:p-4 pb-0">
           {/* CLOSE BUTTON */}
           <button 
-            className="btn btn-sm btn-circle btn-ghost absolute right-4 top-4"
+            className="btn btn-xs btn-circle btn-ghost absolute right-2 top-2"
             onClick={handleClose}
           >
             X
           </button>
 
           {/* MODAL HEADER */}
-          <h3 className="font-bold text-2xl mb-6">Add New Product</h3>
+          <h3 className="font-bold text-lg mb-3">Add New Product</h3>
         </div>
-
-        <form onSubmit={addProduct} className="px-6 md:px-8 pb-6 md:pb-8">
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="space-y-6">
+        {/* FORM */}
+        <form onSubmit={addProduct} className="px-3 md:px-4 pb-3 md:pb-4">
+          <div className="grid md:grid-cols-2 gap-4">
+            <div className="space-y-3">
               {/* PRODUCT NAME INPUT */}
               <div className="form-control">
                 <label className="label">
@@ -84,24 +85,24 @@ function AddProductModal() {
           </div>
 
           {/* MODAL ACTIONS */}
-          <div className="modal-action mt-8 pt-6 border-t border-base-300">
+          <div className="modal-action mt-4 pt-2 border-t border-base-300">
             <button 
               type="button"
-              className="btn btn-ghost btn-lg"
+              className="btn btn-ghost btn-xs"
               onClick={handleClose}
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="btn btn-primary btn-lg min-w-[140px]"
+              className="btn btn-primary btn-xs min-w-[80px]"
               disabled={!formData.name || !formData.price || !formData.image || loading}
             >
               {loading ? (
-                <span className="loading loading-spinner loading-md" />
+                <span className="loading loading-spinner loading-xs" />
               ) : (
                 <>
-                  <PlusCircleIcon className="size-6 mr-2" />
+                  <PlusCircleIcon className="size-4 mr-1" />
                   Add Product
                 </>
               )}

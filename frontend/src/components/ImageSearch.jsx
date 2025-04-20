@@ -33,7 +33,7 @@ function ImageSearch({ onImageSelect, initialImage = "" }) {
     "https://images.unsplash.com/photo-1507035895480-2b3156c31fc8",
     "https://images.unsplash.com/photo-1491553895911-0055eca6402d"
   ];
-
+// SEARCH IMAGES
   const searchImages = async (query = searchQuery) => {
     if (!query.trim()) return;
 
@@ -90,19 +90,18 @@ function ImageSearch({ onImageSelect, initialImage = "" }) {
       setLoading(false);
     }
   };
-
+// HANDLE IMAGE SELECT
   const handleImageSelect = (imageUrl) => {
     setSelectedImage(imageUrl);
     onImageSelect(imageUrl);
     setIsModalOpen(false);
   };
-
+// HANDLE CATEGORY CLICK
   const handleCategoryClick = (category) => {
     setSearchQuery(category);
     searchImages(category);
   };
-
-  // Reset search state when modal opens
+// RESET SEARCH STATE
   useEffect(() => {
     if (isModalOpen) {
       setSearchQuery("");
@@ -113,7 +112,7 @@ function ImageSearch({ onImageSelect, initialImage = "" }) {
       searchImages("popular products");
     }
   }, [isModalOpen]);
-
+      
   // Update selected image when initialImage prop changes
   useEffect(() => {
     setSelectedImage(initialImage);
@@ -123,11 +122,11 @@ function ImageSearch({ onImageSelect, initialImage = "" }) {
     <div className="w-full h-full">
       <div className="form-control h-full">
         <label className="label">
-          <span className="label-text text-base font-medium">Product Image</span>
+          <span className="label-text text-sm font-medium">Product Image</span>
         </label>
 
         {selectedImage ? (
-          <div className="relative rounded-xl overflow-hidden border border-base-300 h-full min-h-[200px] aspect-square group">
+          <div className="relative rounded-xl overflow-hidden border border-base-300 h-full min-h-[120px] aspect-square group">
             <img
               src={selectedImage}
               alt="Selected product"
@@ -137,7 +136,7 @@ function ImageSearch({ onImageSelect, initialImage = "" }) {
               <button
                 type="button"
                 onClick={() => setIsModalOpen(true)}
-                className="btn btn-primary mr-2"
+                className="btn btn-primary btn-xs mr-1"
               >
                 Change Image
               </button>
@@ -147,7 +146,7 @@ function ImageSearch({ onImageSelect, initialImage = "" }) {
                   setSelectedImage("");
                   onImageSelect("");
                 }}
-                className="btn btn-error"
+                className="btn btn-error btn-xs"
               >
                 Remove
               </button>
@@ -157,10 +156,10 @@ function ImageSearch({ onImageSelect, initialImage = "" }) {
           <button
             type="button"
             onClick={() => setIsModalOpen(true)}
-            className="border-2 border-dashed border-base-300 h-full min-h-[200px] aspect-square rounded-xl flex flex-col items-center justify-center hover:border-primary transition-colors"
+            className="border-2 border-dashed border-base-300 h-full min-h-[120px] aspect-square rounded-xl flex flex-col items-center justify-center hover:border-primary transition-colors"
           >
-            <ImageIcon className="size-10 mb-3 text-base-content/60" />
-            <span className="text-base-content/60 text-lg">Click to add image</span>
+            <ImageIcon className="size-6 mb-1 text-base-content/60" />
+            <span className="text-base-content/60 text-sm">Click to add image</span>
           </button>
         )}
       </div>
@@ -173,7 +172,7 @@ function ImageSearch({ onImageSelect, initialImage = "" }) {
             onClick={() => setIsModalOpen(false)}
           />
 
-          <div className="fixed inset-4 bg-base-100 rounded-2xl shadow-2xl flex flex-col z-[101] overflow-hidden">
+          <div className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl h-[80vh] bg-base-100 rounded-2xl shadow-2xl flex flex-col z-[101] overflow-hidden">
             {/* Header */}
             <div className="flex justify-between items-center p-6 border-b border-base-300">
               <h3 className="text-2xl font-bold">Find Product Images</h3>
@@ -294,4 +293,4 @@ function ImageSearch({ onImageSelect, initialImage = "" }) {
   );
 }
 
-export default ImageSearch; 
+export default ImageSearch;

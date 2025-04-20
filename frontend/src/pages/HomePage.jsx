@@ -4,7 +4,7 @@ import { PackageIcon, PlusCircleIcon, RefreshCwIcon, SearchIcon, SlidersHorizont
 import ProductCard from "../components/ProductCard";
 import AddProductModal from "../components/AddProductModal";
 import { motion } from "framer-motion";
-
+// HOME PAGE    
 function HomePage() {
   const { products, loading, error, fetchProducts } = useProductStore();
   const [searchTerm, setSearchTerm] = useState("");
@@ -34,25 +34,25 @@ function HomePage() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 pt-32 pb-10">
+    <div className="max-w-5xl mx-auto px-2 pt-20 pb-4">
       {/* HERO SECTION */}
       <motion.div 
-        initial={{ opacity: 0, y: -20 }}
+        initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-r from-primary/20 to-secondary/20 p-8 rounded-3xl mb-12 shadow-lg"
+        className="bg-gradient-to-r from-primary/20 to-secondary/20 p-4 rounded-2xl mb-6 shadow-md"
       >
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-4">Premium Products Collection</h1>
-          <p className="text-xl opacity-80 mb-8">Discover our curated selection of high-quality products</p>
-          <div className="flex flex-wrap justify-center gap-4">
+        <div className="max-w-2xl mx-auto text-center">
+          <h1 className="text-2xl md:text-3xl font-extrabold mb-2">Quick Pick Collection</h1>
+          <p className="text-base opacity-80 mb-4">Smart shopping for your everyday needs</p>
+          <div className="flex flex-wrap justify-center gap-2">
             <button
-              className="btn btn-primary btn-lg gap-2"
+              className="btn btn-primary btn-sm gap-1"
               onClick={() => document.getElementById("add_product_modal").showModal()}
             >
-              <PlusCircleIcon className="size-6" />
+              <PlusCircleIcon className="size-4" />
               Add New Product
             </button>
-            <button className="btn btn-outline btn-lg" onClick={() => window.scrollTo({ top: 600, behavior: 'smooth' })}>
+            <button className="btn btn-outline btn-sm" onClick={() => window.scrollTo({ top: 600, behavior: 'smooth' })}>
               Browse Collection
             </button>
           </div>

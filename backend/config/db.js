@@ -2,6 +2,7 @@
 const { Sequelize } = require('sequelize');
 require('dotenv').config();
 
+// Connect to the database
 const sequelize = new Sequelize(process.env.DATABASE_URL, {
   dialect: 'postgres',
   dialectOptions: {
@@ -10,7 +11,7 @@ const sequelize = new Sequelize(process.env.DATABASE_URL, {
       rejectUnauthorized: false,
     },
   },
-  logging: console.log, // Enable logging to see SQL queries
+  logging: console.log, 
   pool: {
     max: 5,
     min: 0,

@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
 const Product = require('./product');
-
+// CART MODEL
 const Cart = sequelize.define('Cart', {
   id: {
     type: DataTypes.INTEGER,
@@ -24,7 +24,7 @@ const Cart = sequelize.define('Cart', {
 }, {
   timestamps: true
 });
-
+// ASSOCIATIONS 
 // Define associations
 Cart.belongsTo(Product, { foreignKey: 'productId' });
 

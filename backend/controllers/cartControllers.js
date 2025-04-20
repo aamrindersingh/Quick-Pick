@@ -1,6 +1,7 @@
 const Cart = require('../models/cart');
 const Product = require('../models/product');
 
+// GET CART ITEMS
 exports.getCartItems = async (req, res) => {
     try {
         console.log('Attempting to fetch cart items...');
@@ -21,7 +22,7 @@ exports.getCartItems = async (req, res) => {
         });
     }
 };
-
+// ADD TO CART
 exports.addToCart = async (req, res) => {
     const { productId, quantity = 1 } = req.body;
 
@@ -90,7 +91,7 @@ exports.updateCartItem = async (req, res) => {
         });
     }
 };
-
+// REMOVE FROM CART
 exports.removeFromCart = async (req, res) => {
     const { id } = req.params;
 
@@ -117,7 +118,7 @@ exports.removeFromCart = async (req, res) => {
         });
     }
 };
-
+// CLEAR CART
 exports.clearCart = async (req, res) => {
     try {
         console.log('Attempting to clear cart...');

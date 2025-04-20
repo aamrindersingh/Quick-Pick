@@ -1,5 +1,6 @@
 const Product = require('../models/product');
 
+// GET ALL PRODUCTS
 exports.getProducts = async (req, res) => {
     try {
         console.log('Attempting to fetch products...');
@@ -17,7 +18,7 @@ exports.getProducts = async (req, res) => {
         });
     }
 };
-
+// CREATE PRODUCT
 exports.createProduct = async (req, res) => {
     const { name, price, image } = req.body;
 
@@ -42,7 +43,7 @@ exports.createProduct = async (req, res) => {
         });
     }
 };
-
+// GET PRODUCT BY ID
 exports.getProduct = async (req, res) => {
     const { id } = req.params;
 
@@ -67,7 +68,7 @@ exports.getProduct = async (req, res) => {
         });
     }
 };
-
+// UPDATE PRODUCT
 exports.updateProduct = async (req, res) => {
     const { id } = req.params;
     const { name, price, image } = req.body;
@@ -96,7 +97,7 @@ exports.updateProduct = async (req, res) => {
         });
     }
 };
-
+// DELETE PRODUCT       
 exports.deleteProduct = async (req, res) => {
     const { id } = req.params;
 
