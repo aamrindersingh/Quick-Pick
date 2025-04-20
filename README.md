@@ -58,18 +58,15 @@ Quick Pick is a modern, responsive e-commerce web application built with React a
 
 ### Prerequisites
 - Node.js (v14 or higher)
-- PostgreSQL installed and running
 - Unsplash API key
 
 
 ## Frontend Setup
 
----
-
 ### 1. Clone the repository:
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/aamrindersingh/react-end-term-project.git
 cd quick-pick
 ```
 
@@ -89,46 +86,33 @@ npm install
 npm run dev
 ```
 
-### Backend Setup
+## Backend Setup
+
+### 1. Navigate to the backend directory
 ```bash
-# Navigate to the backend directory
 cd quick-pick/backend
+```
 
-# Install dependencies
+### 2. Install dependencies
+```bash
 npm install
+```
 
-# Create .env file and add your configuration:
-# DATABASE_URL=postgres://user:password@localhost:5432/quick_pick
+### 3. Create .env file and add your configuration:
+```bash
+DATABASE_URL=postgres://user:password@localhost:5432/quick_pick
+```
 
-# Create the PostgreSQL database
-createdb quick_pick
-
-# Run migrations (if using Sequelize CLI)
-npx sequelize db:migrate
-
-# Start the server
+### 4. Start the server
+```bash
 npm run dev
 ```
-The backend API will be available at http://localhost:3000.
 
 ## Screenshots
 
-> **Note:** Add actual screenshots in the `screenshots/` directory and update paths accordingly.
+![Screenshot_2](https://github.com/user-attachments/assets/55157e16-12f5-4f90-9b6d-08028f0f37fc)
+![Screenshot_4](https://github.com/user-attachments/assets/b65ca6dc-194d-45a2-a551-497f7d8f4824)
 
-| Screen                  | Preview                                |
-| ----------------------- | -------------------------------------- |
-| Home Page               | ![Home Page](./screenshots/home.png)   |
-| Product Details / Edit  | ![Product Edit](./screenshots/edit.png)|
-| Shopping Cart           | ![Cart](./screenshots/cart.png)        |
-| Theme Selector          | ![Theme Selector](./screenshots/theme.png)|
-| Image Search Modal      | ![Image Search](./screenshots/image_search.png)|
 
-## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-- [Unsplash](https://unsplash.com/) for the image search API.
-- [DaisyUI](https://daisyui.com/) for UI components.
-- All open-source libraries and contributors that made this project possible.
 
