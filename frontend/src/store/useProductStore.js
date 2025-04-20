@@ -7,7 +7,7 @@ const BASE_URL = import.meta.env.VITE_API_BASE || "";
 
 export const useProductStore = create((set, get) => ({
   // products state
-  products: [],
+  products: [] ,
   loading: false,
   error: null,
   currentProduct: null,
