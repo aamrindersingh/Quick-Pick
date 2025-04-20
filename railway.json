@@ -1,0 +1,11 @@
+{
+  "build": {
+    "env": "node",
+    "command": "npm install",
+    "directory": "backend"
+  },
+  "deploy": {
+    "command": "npm start",
+    "directory": "backend"
+  }
+}
